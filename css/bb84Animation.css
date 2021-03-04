@@ -31,6 +31,9 @@
 }
 
 .bad {
-    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(25deg) brightness(118%) contrast(119%);
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(150deg) brightness(118%) contrast(119%);
 }
 
+.error {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(330deg) brightness(118%) contrast(119%);
+}

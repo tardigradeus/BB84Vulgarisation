@@ -5,19 +5,25 @@ var nbrPhoton = 5;
 
 var eve = false;
 
+var delay = true;
+
 function EveHere(){
 	var eveHtml = document.getElementById("eve");
 	var bobHtml = document.getElementById("bob");
 	// on cache Eve
 	if(eve) {
 		eveHtml.style.display='none';
+		eve = false;		
+		
 		bob.style.marginTop ="500px";
-		eve = false;
+
 	// on montre eve	
 	} else {
 		eveHtml.style.display='block';
-		bob.style.marginTop ="244px";
+		eveHtml.style.marginTop ="122px";
 		eve = true;
+		
+		bob.style.marginTop ="122px";
 	}
 	cleanHtml();
 }
@@ -25,6 +31,7 @@ function EveHere(){
 // On bloque le bouton start et le checked element
 function blockHtml(){
 	document.getElementById("EveHere").disabled = true;
+	document.getElementById("delay").disabled = false;
 	document.querySelectorAll('.start').forEach(elem => {
 	  elem.disabled = true;
 	});
@@ -33,6 +40,7 @@ function blockHtml(){
 // On remet disponible les bouton et le checked element
 function freeHtml(){
 	document.getElementById("EveHere").disabled = false;
+	document.getElementById("delay").disabled = false;
 	document.querySelectorAll('.start').forEach(elem => {
 	  elem.disabled = false;
 	});
@@ -40,42 +48,13 @@ function freeHtml(){
 
 // On nettoie toute notre animation pour repartir avec quelquechose de propre
 function cleanHtml(){
-	// On récupère la chaine k d'alice et la réinitialise
-	let kGenerated = document.getElementById("k");
-	while (kGenerated.lastElementChild) {
-		kGenerated.removeChild(kGenerated.lastElementChild);
+	let toclean = document.querySelectorAll('.cleaneable');
+	for(let i = 0 ; i < toclean.length ; i++){
+		let clean = toclean[i];
+		while (clean.lastElementChild) {
+			clean.removeChild(clean.lastElementChild);
+		}
 	}
-	
-	// On récupère la base d'alice et la réinitialise
-	let aBasesHTML = document.getElementById("ABases");
-	while (aBasesHTML.lastElementChild) {
-		aBasesHTML.removeChild(aBasesHTML.lastElementChild);
-	}
-	
-	// On récupère la base de Bob et la réinitialise
-	let bBasesHTML = document.getElementById("BBases");
-	while (bBasesHTML.lastElementChild) {
-		bBasesHTML.removeChild(bBasesHTML.lastElementChild);
-	}
-	
-	// On récupère les photon polarisé par alice et on réinitialise
-	let aPhotonPolarizedHTML = document.getElementById("APolarized");
-	while (aPhotonPolarizedHTML.lastElementChild) {
-		aPhotonPolarizedHTML.removeChild(aPhotonPolarizedHTML.lastElementChild);
-	}
-	
-	// On récupère les photon décodé par bob et on réinitialise
-	let bPhotonDecoded = document.getElementById("BDecode");
-	while (bPhotonDecoded.lastElementChild) {
-		bPhotonDecoded.removeChild(bPhotonDecoded.lastElementChild);
-	}
-	
-	// On récupère les photon recu par bob
-	let bPhoton = document.getElementById("BPhoton");
-	while (bPhoton.lastElementChild) {
-		bPhoton.removeChild(bPhoton.lastElementChild);
-	}
-	
 }
 
 function encodePhoton(kArray,baseArray,PhotonPolarizedHTML){
@@ -150,37 +129,51 @@ function createPhoton(photon,PhotonHTML){
 	PhotonHTML.appendChild(photon);
 }
 
-function decode(k,abase,bbase,decodeHTML){
+// On décode la suite de photon reçu par alice (selon la base de bob ou d'Eve) on créer ensuite les photons en leurs donnant une classe spécifiant si la lecture est bonne ou mauvaises
+function decode(k,abase,base,decodeHTML){
 	
 	// On créer notre photon polarisé
 	let polarizedIMG = document.createElement('img');
 	
-	// Si c'est la bonne base qui est utilisé par Bob alors il décodera la bonne valeurs
-	if(abase == bbase) {
+	// On créer l'objet de retour pour nous permettre de savoir ou il y à eu des bons et des mauvaise utilisations
+	  var ret = {
+		bitval:  0,
+		type: ''
+	  };
+	
+	
+	// Si c'est la bonne base qui est utilisé alors on décode la bonne valeur du photon
+	if(abase == base) {
 		polarizedIMG.classList.add("good");
-	// Bob n'a pas utilisé le bon filtre alors il récupérera un résultat aléatoire
+		
+		ret.type = 'good';
+		ret.bitval = k;
+	// La base utilisé est mauvaises du coup le résultat sera aléatoire
 	} else {
 		polarizedIMG.classList.add("bad");
 		k = randomIntFromInterval(0,1);
+		
+		ret.type = 'bad';
+		ret.bitval = k;
 	}
 	// Si la base est 1 on utilisera la base diagonal
-	if(bbase == 1) {
-		// Si la valeur du Bit dans la chaine K est 1 alors on utilisera la diagonal Gauche
+	if(base == 1) {
+		// Si la valeur du Bit dans la chaine K est 1 alors le photon sera polarisé en diagonal Gauche
 		if(k == 1) {
 			polarizedIMG.src = "img/LeftDiagArrow.svg";
 			polarizedIMG.classList.add("leftDiag");
-		// Sinon on utilisera la diagonal droite
+		// Sinon le photon sera polarisé en diagonal droite
 		} else {
 			polarizedIMG.src = "img/RightDiagArrow.svg";
 			polarizedIMG.classList.add("rightDiag");
 		}
 	// Sinon on utilisera la base horizontal
 	} else {
-		// Si la valeur du Bit dans la chaine K est 1 alors on utilisera la vertical
+		// Si la valeur du Bit dans la chaine K est 1 alors le photon sera polarisé a la vertical
 		if(k == 1) {
 			polarizedIMG.src = "img/VerticalArrow.svg";
 			polarizedIMG.classList.add("vert");
-		// Sinon on utilisera l'horizontal
+		// Sinon le photon sera polarisé à l'horizontal
 		} else {
 			polarizedIMG.src = "img/HorizontalArrow.svg";
 			polarizedIMG.classList.add("hori");
@@ -188,6 +181,94 @@ function decode(k,abase,bbase,decodeHTML){
 	}
 	polarizedIMG.classList.add("decode");
 	decodeHTML.appendChild(polarizedIMG);
+	
+	// On retourne la valeur de notre bit lu
+	return ret;
+}
+
+// Bob décode ce que lui envois eve à partir de ce qu'elle même a recu d'alice
+function decodeFromEve(k,decodeEve,aBase,eBase,bBase,decodeHTML){
+	
+	// On créer notre photon polarisé
+	let polarizedIMG = document.createElement('img');
+	
+	// On créer l'objet de retour pour nous permettre de savoir ou il y à eu des bons et des mauvaise utilisations
+	var ret = {
+		bitval:  0,
+		type: ''
+	 };
+	
+	
+	
+	// Si c'est la bonne base qui est utilisé par tout le monde alors bob obtient tout le monde à une partie de la clé final
+	if(aBase == eBase && eBase == bBase) {
+		polarizedIMG.classList.add("good");
+		
+		ret.type = 'good';
+		ret.bitval = decodeEve;
+	
+	// La base utilisé par eve était la bonne mais bob n'a pas eu la même base que eve et du coup n'a pas la même base qu'alice il obtient donc un résulat aléatoire
+	} else if(aBase == eBase && eBase != bBase) {
+		polarizedIMG.classList.add("bad");
+		decodeEve = randomIntFromInterval(0,1);
+		
+		ret.type = 'bad';
+		ret.bitval = decodeEve;
+	
+	// La base utilisé par eve n'était pas la bonne et bob à utilisé la même base que eve il obtient donc le même résultat que eve
+	} else if (aBase != eBase && eBase == bBase) {
+		polarizedIMG.classList.add("bad");
+		
+		ret.type = 'bad';
+		ret.bitval = decodeEve;
+		
+	// La base utilisé par eve n'est pas la bonne et bob n'a pas utilisé la même base qu'eve (il a donc la bonne base par rapport à alice) dans ce cas eve à une chance sur deux d'avoir introduit une erreur et donc d'être détecté
+	} else if (aBase != eBase && eBase != bBase) {
+		decodeEve = randomIntFromInterval(0,1);
+		// Eve a introduit une erreur et peut ce faire repérer 
+		if(decodeEve != k) {
+			polarizedIMG.classList.add("error");
+			
+			ret.type = 'error';
+			ret.bitval = decodeEve;
+			
+		// Eve a introduit une erreur mais ne peut pas ce faire repérer 
+		} else {
+			polarizedIMG.classList.add("good");
+			
+			ret.type = 'good';
+			ret.bitval = decodeEve;
+		}
+	}
+	
+	
+	// Si la base de bob est 1 on utilisera la base diagonal
+	if(bBase == 1) {
+		// Si la valeur du bit reçu de eve est 1 alors le photon sera polarisé en diagonal Gauche
+		if(decodeEve == 1) {
+			polarizedIMG.src = "img/LeftDiagArrow.svg";
+			polarizedIMG.classList.add("leftDiag");
+		// Sinon le photon sera polarisé en diagonal droite
+		} else {
+			polarizedIMG.src = "img/RightDiagArrow.svg";
+			polarizedIMG.classList.add("rightDiag");
+		}
+	// Sinon on utilisera la base horizontal
+	} else {
+		// Si la valeur dubit reçu de eve est 1 alors le photon sera polarisé a la vertical
+		if(decodeEve == 1) {
+			polarizedIMG.src = "img/VerticalArrow.svg";
+			polarizedIMG.classList.add("vert");
+		// Sinon le photon sera polarisé à l'horizontal
+		} else {
+			polarizedIMG.src = "img/HorizontalArrow.svg";
+			polarizedIMG.classList.add("hori");
+		}
+	}
+	polarizedIMG.classList.add("decode");
+	decodeHTML.appendChild(polarizedIMG);
+	
+	return ret;
 }
 
 // Boutton start 
@@ -198,16 +279,19 @@ document.querySelector('.start').onclick = async function(){
 	nbrPhoton = nbr > 0 ? nbr : 1;
 	
 	eve = document.getElementById("EveHere").checked ;
-	
+	delay = document.getElementById("delay").checked ;
 	
 	run = true;
-	// On génère la suite aléatoire de bit pour Alice
+	// suite aléatoire de bit pour Alice
 	let k = '';
-	// On génère la base d'encodage d'alice
+	// base d'encodage d'Alice
 	let aBases = '';
 	
-	// On génère la base de décodage pour Bob
+	// base de décodage pour Bob
 	let bBases = '';
+	
+	// base de décodage d'Eve
+	let eBases = '';
 	
 	cleanHtml();
 	
@@ -226,32 +310,40 @@ document.querySelector('.start').onclick = async function(){
 		// On remplit la base d'alice
 		aBase = randomIntFromInterval(0,1);
 		aBases += aBase;
+		
 		// On remplit les base html d'alice
 		createBase(aBase,document.getElementById("ABases"))
 		
-		
 		// On remplit la base de bob
 		bBases += randomIntFromInterval(0,1);
+		
+		// On remplit la base d'eve
+		eBases += randomIntFromInterval(0,1);
 	}
 		
-	// On donne la liste des bit à encoder et la liste des base utilisées ainsi que la localisation html ou il faut placer les éléments
+	// On donne la liste des bit à encoder et la liste des bases utilisées ainsi que la localisation html ou il faut placer les éléments
 	encodePhoton(Array.from(k),Array.from(aBases),document.getElementById("APolarized"));
 
 
 	// On récupère la liste de nos photon polarisé en DOM HTML et on les animes
-	const alicePhotonHTML = document.querySelectorAll('.photon');
+	let alicePhotonHTML = document.querySelectorAll('.photon');
+	// Toute les valeurs qui ont été décodé
+	let valDecoded = [];
 	
 	// s'il n'y a pas Eve dans le système on anime pour Alice vers Bob directement
 	if(!eve){
 		for (let i = 0; i < alicePhotonHTML.length; i++) {
-			// On fait l'animation de l'électron
-			anime({
-			  targets: alicePhotonHTML[i],
-			  translateY: 700,
-			  easing: 'easeInOutSine',
-			  duration: 500
-			});
-			await sleep(650);
+			
+			// On fait l'animation du photonj d'alice a bob
+			if(delay) {
+				anime({
+				  targets: alicePhotonHTML[i],
+				  translateY: 700,
+				  easing: 'easeInOutSine',
+				  duration: 500
+				});
+				await sleep(650);
+			}
 			
 			// On créer une case vide dans l'html qui correspond à la réception d'un photon dans l'animation
 			createPhoton(alicePhotonHTML[i],document.getElementById("BPhoton"));
@@ -259,11 +351,80 @@ document.querySelector('.start').onclick = async function(){
 			// On créer la base html pour bob du photon qui viens d'arriver 
 			createBase(bBases[i],document.getElementById("BBases"));
 			// On créer le décodage html du photon de bob
-			decode(k[i],aBases[i],bBases[i],document.getElementById("BDecode"));
+			valDecoded.push(decode(k[i],aBases[i],bBases[i],document.getElementById("BDecode")));
 		}
 	// Animation avec Eve au milieux entre Alice et Bob
 	} else {
-		console.log("Eve Animation");
+		let decodeEve = '';
+		for (let i = 0; i < alicePhotonHTML.length; i++) {
+			
+			// On fait l'animation du photon d'alice a eve
+			if(delay) {
+				anime({
+				  targets: alicePhotonHTML[i],
+				  translateY: 325,
+				  easing: 'easeInOutSine',
+				  duration: 500
+				});
+				await sleep(650);
+			}				
+			// On créer une case dans l'html qui correspond à la réception d'un photon après l'animation
+			createPhoton(alicePhotonHTML[i],document.getElementById("EPhoton"));
+			
+			// On créer la base html pour Eve du photon qui viens d'arriver 
+			createBase(eBases[i],document.getElementById("EBases"));
+			
+			// On créer le décodage html du photon de Eve
+			decodeEve += decode(k[i],aBases[i],eBases[i],document.getElementById("EDecode")).bitval;	
+		}
+		
+		// On récupère la liste des photon décodé par Eve en DOM HTML et on les envois à bob
+		let evePhotonHTML = document.querySelectorAll('.decode');
+		for (let i = 0; i < evePhotonHTML.length; i++) {
+			// On fait l'animation du photon d'eve a bob
+			if(delay) {
+				anime({
+				  targets: evePhotonHTML[i],
+				  translateY: 325,
+				  easing: 'easeInOutSine',
+				  duration: 500
+				});
+				await sleep(650);
+			}
+			// On créer une case dans l'html qui correspond à la réception d'un photon après l'animation
+			createPhoton(evePhotonHTML[i],document.getElementById("BPhoton"));
+			
+			// On créer la base html pour Bob du photon qui viens d'arriver 
+			createBase(bBases[i],document.getElementById("BBases"));
+			
+			// On créer le décodage html du photon reçu par Eve
+			valDecoded.push(decodeFromEve(k[i],decodeEve[i],aBases[i],eBases[i],bBases[i],document.getElementById("BDecode")));	
+		}
 	}
+	
+	
+	// On créer la séquence de bit d'alice et de Bob en fonction des retours qui a pour objet {bitval: 0|1, type: 'good'|'bad'|'error'}
+	let aliceBits = document.getElementById("aliceBitSequence");
+	let bobKeyBits = document.getElementById("bobBitSequence");
+	
+	for (let i = 0; i < valDecoded.length; i++){
+		// Si dans les valeur reçu on a good ou error alors le resultat fait partie de la séquence de bit
+		if (valDecoded[i].type != "bad") {
+			let aliceBitHTML = document.createElement('img');
+			let bobBitHTML = document.createElement('img');
+		
+			aliceBitHTML.src = "img/" + k[i] + ".svg";
+			bobBitHTML.src   = "img/" + valDecoded[i].bitval + ".svg";
+			
+			if (valDecoded[i].type == "error") {
+				bobBitHTML.classList.add("error");
+			}
+			//aliceBitHTML.classList.add("kGenerated");
+			aliceBits.appendChild(aliceBitHTML);
+			bobKeyBits.appendChild(bobBitHTML);
+		}
+	}
+	
+	
 	freeHtml();
 }

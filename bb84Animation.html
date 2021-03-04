@@ -22,13 +22,13 @@
 					<img class="actor" src="img/alice.svg" >
 				</td>
 				<td>
-					<div class="horizontal" id="k">
+					<div class="horizontal cleaneable" id="k">
 							
 					</div>
-					<div class="horizontal" id="ABases">
+					<div class="horizontal cleaneable" id="ABases">
 								
 					</div>
-					<div class="horizontal" id="APolarized">
+					<div class="horizontal cleaneable" id="APolarized">
 								
 					</div>
 				</td>
@@ -42,10 +42,13 @@
 					<img class="actor" src="img/eve.svg">
 				</td>
 				<td>
-					<div class="horizontal" id="EBases">
+					<div class="horizontal cleaneable" id="EPhoton">
+					
+					</div>
+					<div class="horizontal cleaneable" id="EBases">
 								
 					</div>
-					<div class="horizontal" id="EPolarized">
+					<div class="horizontal cleaneable" id="EDecode">
 								
 					</div>
 				</td>
@@ -59,13 +62,13 @@
 					<img class="actor" src="img/bob.svg">
 				</td>
 				<td>
-					<div class="horizontal" id="BPhoton">
+					<div class="horizontal cleaneable" id="BPhoton">
 					
 					</div>
-					<div class="horizontal" id="BBases">
+					<div class="horizontal cleaneable" id="BBases">
 								
 					</div>
-					<div class="horizontal" id="BDecode">
+					<div class="horizontal cleaneable" id="BDecode">
 								
 					</div>
 				</td>
@@ -76,8 +79,14 @@
 	
 	<label for="EveHere">Présence d'Eve</label>
 	<input type="checkbox" id="EveHere" name="EveHere" value="Eve" onchange="EveHere()"><br>
-
-	<button class="start">start</button>
+	
+	<label for="delay">Délais</label>
+	<input type="checkbox" id="delay" name="delay" value="delay" checked="true"><br>
+	
+	<button class="start">start</button></br>
+	
+	<label for="aliceBitSequence">Bits d'Alice : </label><div class="cleaneable" name="aliceBitSequence" id="aliceBitSequence"></div>
+	<label for="bobBitSequence">Bits de Bob : </label><div class="cleaneable" name="bobBitSequence" id="bobBitSequence"></div>
 	
 	<script src="js/bb84Animation.js"></script>
   </body>
