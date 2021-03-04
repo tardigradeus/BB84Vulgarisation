@@ -9,7 +9,7 @@
 	width: 25px;
 }
 
-.photon {
+.photon, .decode {
 	margin: 1px;
 	height: 25px;
 	width: 25px;
@@ -17,4 +17,12 @@
 
 .vertical {
 	vertical-align:middle;
+}
+
+.good{
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(86deg) brightness(118%) contrast(119%);
+}
+
+.bad {
+    filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(25deg) brightness(118%) contrast(119%);
 }
