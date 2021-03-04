@@ -3,6 +3,73 @@ var run = false;
 
 var nbrPhoton = 5;
 
+var eve = false;
+
+function EveHere(){
+	var eveHtml = document.getElementById("eve");
+	var bobHtml = document.getElementById("bob");
+	// on cache Eve
+	if(eve) {
+		eveHtml.style.display='none';
+		bob.style.marginTop ="500px";
+		eve = false;
+	// on montre eve	
+	} else {
+		eveHtml.style.display='block';
+		bob.style.marginTop ="244px";
+		eve = true;
+	}
+	cleanHtml();
+}
+
+// On bloque le bouton start et le checked element
+function blockHtml(){
+	document.getElementById("EveHere").disabled = true;
+	document.querySelectorAll('.start').forEach(elem => {
+	  elem.disabled = true;
+	});
+}
+
+// On remet disponible les bouton et le checked element
+function freeHtml(){
+	document.getElementById("EveHere").disabled = false;
+	document.querySelectorAll('.start').forEach(elem => {
+	  elem.disabled = false;
+	});
+}
+
+// On nettoie toute notre animation pour repartir avec quelquechose de propre
+function cleanHtml(){
+	// On récupère la chaine k d'alice et la réinitialise
+	let kGenerated = document.getElementById("k");
+	while (kGenerated.lastElementChild) {
+		kGenerated.removeChild(kGenerated.lastElementChild);
+	}
+	
+	// On récupère la base d'alice et la réinitialise
+	let aBasesHTML = document.getElementById("ABases");
+	while (aBasesHTML.lastElementChild) {
+		aBasesHTML.removeChild(aBasesHTML.lastElementChild);
+	}
+	
+	// On récupère la base de Bob et la réinitialise
+	let bBasesHTML = document.getElementById("BBases");
+	while (bBasesHTML.lastElementChild) {
+		bBasesHTML.removeChild(bBasesHTML.lastElementChild);
+	}
+	
+	// On récupère les photon polarisé par alice et on réinitialise
+	let aPhotonPolarizedHTML = document.getElementById("APolarized");
+	while (aPhotonPolarizedHTML.lastElementChild) {
+		aPhotonPolarizedHTML.removeChild(aPhotonPolarizedHTML.lastElementChild);
+	}
+	
+	// On récupère les photon décodé par bob et on réinitialise
+	let bPhotonDecoded = document.getElementById("BDecode");
+	while (bPhotonDecoded.lastElementChild) {
+		bPhotonDecoded.removeChild(bPhotonDecoded.lastElementChild);
+	}
+}
 
 function encodePhoton(kArray,baseArray,PhotonPolarizedHTML){
 	for (let i = 0; i < kArray.length ; i++){
@@ -54,6 +121,19 @@ function createBases(bases,baseHTML){
 	}
 }
 
+function createBase(base,baseHTML){
+		// On créer notre base
+		let baseIMG = document.createElement('img');
+		if(base == 1) {
+			baseIMG.src = "img/DiagArrowsCross.svg";
+		} else {
+			baseIMG.src = "img/RectArrowsCross.svg";
+		}
+		baseIMG.classList.add("base");
+		baseHTML.appendChild(baseIMG);
+}
+
+
 function decode(k,abase,bbase,decodeHTML){
 	console.log(k + " " + abase + " " + bbase);
 	
@@ -97,10 +177,13 @@ function decode(k,abase,bbase,decodeHTML){
 
 // Boutton start 
 document.querySelector('.start').onclick = async function(){
-	
+	blockHtml();
 	var nbr = parseInt(document.getElementById("nbr").value);
 	console.log(document.getElementById("nbr").value);
 	nbrPhoton = nbr > 0 ? nbr : 1;
+	
+	eve = document.getElementById("EveHere").checked ;
+	
 	
 	run = true;
 	// On génère la suite aléatoire de bit pour Alice
@@ -111,37 +194,7 @@ document.querySelector('.start').onclick = async function(){
 	// On génère la base de décodage pour Bob
 	let bBases = '';
 	
-	// On récupère la chaine k d'alice et la réinitialise
-	let kGenerated = document.getElementById("k");
-	while (kGenerated.lastElementChild) {
-		kGenerated.removeChild(kGenerated.lastElementChild);
-	}
-	
-	// On récupère la base d'alice et la réinitialise
-	let aBasesHTML = document.getElementById("ABases");
-	while (aBasesHTML.lastElementChild) {
-		aBasesHTML.removeChild(aBasesHTML.lastElementChild);
-	}
-	
-	// On récupère la base de Bob et la réinitialise
-	let bBasesHTML = document.getElementById("BBases");
-	while (bBasesHTML.lastElementChild) {
-		bBasesHTML.removeChild(bBasesHTML.lastElementChild);
-	}
-	
-	// On récupère les photon polarisé par alice et on réinitialise
-	let aPhotonPolarizedHTML = document.getElementById("APolarized");
-	while (aPhotonPolarizedHTML.lastElementChild) {
-		aPhotonPolarizedHTML.removeChild(aPhotonPolarizedHTML.lastElementChild);
-	}
-	
-	// On récupère les photon décodé par bob et on réinitialise
-	let bPhotonDecoded = document.getElementById("BDecode");
-	while (bPhotonDecoded.lastElementChild) {
-		bPhotonDecoded.removeChild(bPhotonDecoded.lastElementChild);
-	}
-	
-	
+	cleanHtml();
 	
 	for (let i = 0; i < nbrPhoton; i++) {
 		
@@ -152,24 +205,22 @@ document.querySelector('.start').onclick = async function(){
 		let kHTML = document.createElement('img');
 		kHTML.src = "img/" + kRandom + ".svg";
 		kHTML.classList.add("kGenerated");
-		kGenerated.appendChild(kHTML);
+		document.getElementById("k").appendChild(kHTML);
 		
 		
 		// On remplit la base d'alice
-		aBases += randomIntFromInterval(0,1);
+		aBase = randomIntFromInterval(0,1);
+		aBases += aBase;
+		// On remplit les base html d'alice
+		createBase(aBase,document.getElementById("ABases"))
+		
 		
 		// On remplit la base de bob
 		bBases += randomIntFromInterval(0,1);
 	}
 		
-	// On créer les bases pour Alice
-	createBases(aBases,aBasesHTML);
-	
-	// On créer les base"s pour Bob
-	createBases(bBases,bBasesHTML);
-		
 	// On donne la liste des bit à encoder et la liste des base utilisées ainsi que la localisation html ou il faut placer les éléments
-	encodePhoton(Array.from(k),Array.from(aBases),aPhotonPolarizedHTML);
+	encodePhoton(Array.from(k),Array.from(aBases),document.getElementById("APolarized"));
 
 
 	// On récupère la liste de nos photon polarisé en DOM HTML
@@ -179,12 +230,15 @@ document.querySelector('.start').onclick = async function(){
 		// On fait l'animation de l'électron
 		anime({
 		  targets: alicePhotonHTML[i],
-		  translateY: 500,
+		  translateY: 675,
 		  easing: 'easeInOutSine',
 		  duration: 500
 		});
 		await sleep(500);
-		decode(k[i],aBases[i],bBases[i],bPhotonDecoded);
+		// On créer la base html pour bob du photon qui viens d'arriver 
+		createBase(bBases[i],document.getElementById("BBases"));
+		// On créer le décodage html du photon de bob
+		decode(k[i],aBases[i],bBases[i],document.getElementById("BDecode"));
 	}
-	
+	freeHtml();
 }

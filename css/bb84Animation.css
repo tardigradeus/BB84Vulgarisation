@@ -3,6 +3,15 @@
 	margin-top: 500px;
 }
 
+#eve {
+	display: none;
+}
+
+.actor {
+	width: 200px;
+	height: 200px;
+}
+
 .photon, .decode, .kGenerated, .base {
 	margin: 1px;
 	height: 25px;
@@ -20,3 +29,4 @@
 .bad {
     filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(25deg) brightness(118%) contrast(119%);
 }
+

@@ -15,48 +15,65 @@
   <body>
 
 
-	<div class="container">
-		<div id="alice">
-			<p>Alice</p>
-			<div class="horizontal">
-				<img src="img/alice.svg" width="200" height="200">
-				<div class="vertical">
+		<table id="alice">
+			<tr>
+				<td>
+					<p>Alice</p>
+					<img class="actor" src="img/alice.svg" >
+				</td>
+				<td>
 					<div class="horizontal" id="k">
-					
+							
 					</div>
 					<div class="horizontal" id="ABases">
-						
+								
 					</div>
 					<div class="horizontal" id="APolarized">
-						
+								
 					</div>
-				</div>
-			</div>
-		</div>
+				</td>
+			</tr>
+		</table>
 		
-		<div id="eve">
-			<p>Eve</p>
-			<div class="horizontal">
-				<img src="img/eve.svg" width="200" height="200">
-			</div>
-		</div>
+		<table id="eve">
+			<tr>
+				<td>
+					<p>Eve</p>
+					<img class="actor" src="img/eve.svg">
+				</td>
+				<td>
+					<div class="horizontal" id="EBases">
+								
+					</div>
+					<div class="horizontal" id="E Polarized">
+								
+					</div>
+				</td>
+			</tr>
+		</table>
 		
-		<div id="bob">
-		<div class="horizontal">
-			<div class="vertical">
-				<div class="horizontal" id="BBases">
-							
-				</div>
-				<div class="horizontal" id="BDecode">
-							
-				</div>
-			</div>
-			<p>Bob</p>
-			<img src="img/bob.svg" width="200" height="200">
-		</div>
-		</div>
+		<table id="bob">
+			<tr>
+				<td>
+					<p>Bob</p>
+					<img class="actor" src="img/bob.svg">
+				</td>
+				<td>
+					<div class="horizontal" id="BBases">
+								
+					</div>
+					<div class="horizontal" id="BDecode">
+								
+					</div>
+				</td>
+			</tr>
+		</table>
 	</div>
-	<label>Nombre de photon polarisé : </label><input type='text' id="nbr" onkeypress='validate(event)' /><br/>
+	<label>Nombre de photon polarisé : </label><input type='text' id="nbr" onkeypress='validate(event)' /><br>
+	
+	<label for="EveHere">Présence d'Eve</label>
+	<input type="checkbox" id="EveHere" name="EveHere" value="Eve" onchange="EveHere()"><br>
+
 	<button class="start">start</button>
 	
 	<script src="js/bb84Animation.js"></script>
