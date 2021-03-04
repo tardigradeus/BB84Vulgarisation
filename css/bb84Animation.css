@@ -3,13 +3,7 @@
 	margin-top: 500px;
 }
 
-.base {
-	margin: 1px;
-	height: 25px;
-	width: 25px;
-}
-
-.photon, .decode {
+.photon, .decode, .kGenerated, .base {
 	margin: 1px;
 	height: 25px;
 	width: 25px;

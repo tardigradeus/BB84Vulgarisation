@@ -1,7 +1,7 @@
 // Variable global pour l'animation du protocole
 var run = false;
 
-var nbrPhoton = 20;
+var nbrPhoton = 5;
 
 
 function encodePhoton(kArray,baseArray,PhotonPolarizedHTML){
@@ -97,6 +97,11 @@ function decode(k,abase,bbase,decodeHTML){
 
 // Boutton start 
 document.querySelector('.start').onclick = async function(){
+	
+	var nbr = parseInt(document.getElementById("nbr").value);
+	console.log(document.getElementById("nbr").value);
+	nbrPhoton = nbr > 0 ? nbr : 1;
+	
 	run = true;
 	// On génère la suite aléatoire de bit pour Alice
 	let k = '';
@@ -105,6 +110,12 @@ document.querySelector('.start').onclick = async function(){
 	
 	// On génère la base de décodage pour Bob
 	let bBases = '';
+	
+	// On récupère la chaine k d'alice et la réinitialise
+	let kGenerated = document.getElementById("k");
+	while (kGenerated.lastElementChild) {
+		kGenerated.removeChild(kGenerated.lastElementChild);
+	}
 	
 	// On récupère la base d'alice et la réinitialise
 	let aBasesHTML = document.getElementById("ABases");
@@ -133,8 +144,16 @@ document.querySelector('.start').onclick = async function(){
 	
 	
 	for (let i = 0; i < nbrPhoton; i++) {
+		
+		kRandom = randomIntFromInterval(0,1);
 		// On remplit la suite K 
-		k += randomIntFromInterval(0,1);
+		k += kRandom;
+		
+		let kHTML = document.createElement('img');
+		kHTML.src = "img/" + kRandom + ".svg";
+		kHTML.classList.add("kGenerated");
+		kGenerated.appendChild(kHTML);
+		
 		
 		// On remplit la base d'alice
 		aBases += randomIntFromInterval(0,1);
@@ -142,7 +161,6 @@ document.querySelector('.start').onclick = async function(){
 		// On remplit la base de bob
 		bBases += randomIntFromInterval(0,1);
 	}
-	document.getElementById("nbr").value = k;
 		
 	// On créer les bases pour Alice
 	createBases(aBases,aBasesHTML);
