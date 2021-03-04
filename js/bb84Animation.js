@@ -69,6 +69,13 @@ function cleanHtml(){
 	while (bPhotonDecoded.lastElementChild) {
 		bPhotonDecoded.removeChild(bPhotonDecoded.lastElementChild);
 	}
+	
+	// On récupère les photon recu par bob
+	let bPhoton = document.getElementById("BPhoton");
+	while (bPhoton.lastElementChild) {
+		bPhoton.removeChild(bPhoton.lastElementChild);
+	}
+	
 }
 
 function encodePhoton(kArray,baseArray,PhotonPolarizedHTML){
@@ -133,9 +140,17 @@ function createBase(base,baseHTML){
 		baseHTML.appendChild(baseIMG);
 }
 
+function createPhoton(photon,PhotonHTML){
+	// On remove le parent de notre photon
+	// photon.parentNode.removeChild(photon);
+	
+	photon.style = '';
+	// photon.className = '';
+	photon.classList.add("bobPhoton");
+	PhotonHTML.appendChild(photon);
+}
 
 function decode(k,abase,bbase,decodeHTML){
-	console.log(k + " " + abase + " " + bbase);
 	
 	// On créer notre photon polarisé
 	let polarizedIMG = document.createElement('img');
@@ -223,22 +238,32 @@ document.querySelector('.start').onclick = async function(){
 	encodePhoton(Array.from(k),Array.from(aBases),document.getElementById("APolarized"));
 
 
-	// On récupère la liste de nos photon polarisé en DOM HTML
-	var alicePhotonHTML = document.getElementsByClassName("photon");
-	for (let i = 0; i < alicePhotonHTML.length; i++) {
-
-		// On fait l'animation de l'électron
-		anime({
-		  targets: alicePhotonHTML[i],
-		  translateY: 675,
-		  easing: 'easeInOutSine',
-		  duration: 500
-		});
-		await sleep(500);
-		// On créer la base html pour bob du photon qui viens d'arriver 
-		createBase(bBases[i],document.getElementById("BBases"));
-		// On créer le décodage html du photon de bob
-		decode(k[i],aBases[i],bBases[i],document.getElementById("BDecode"));
+	// On récupère la liste de nos photon polarisé en DOM HTML et on les animes
+	const alicePhotonHTML = document.querySelectorAll('.photon');
+	
+	// s'il n'y a pas Eve dans le système on anime pour Alice vers Bob directement
+	if(!eve){
+		for (let i = 0; i < alicePhotonHTML.length; i++) {
+			// On fait l'animation de l'électron
+			anime({
+			  targets: alicePhotonHTML[i],
+			  translateY: 700,
+			  easing: 'easeInOutSine',
+			  duration: 500
+			});
+			await sleep(650);
+			
+			// On créer une case vide dans l'html qui correspond à la réception d'un photon dans l'animation
+			createPhoton(alicePhotonHTML[i],document.getElementById("BPhoton"));
+			
+			// On créer la base html pour bob du photon qui viens d'arriver 
+			createBase(bBases[i],document.getElementById("BBases"));
+			// On créer le décodage html du photon de bob
+			decode(k[i],aBases[i],bBases[i],document.getElementById("BDecode"));
+		}
+	// Animation avec Eve au milieux entre Alice et Bob
+	} else {
+		console.log("Eve Animation");
 	}
 	freeHtml();
 }
