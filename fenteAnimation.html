@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Fentes de Young</title>
+	
+	<link href="css/fenteAnimation.css" rel="stylesheet" type="text/css" media="all">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/anime.min.js"></script>
+	<script src="js/outils.js"></script>
+	
+	
+  </head>
+  <body>
+	<canvas id="canvas" class="ecran">	Your browser does not support canvas.</canvas>
+	
+
+	</br>
+	<img src="img/Double-slit.svg" width="200" height="200" id="fente">
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	</br>
+	<img src="img/cannon.svg" width="200px" height="200px" id="cannon">
+	<br/>
+	<label>Nombre de point à créer : </label><input type='text' id="nbr" onkeypress='validate(event)' /><br/>
+	<label>Délais entre chaques points (en ms) : </label><input type='text' id="delay" onkeypress='validate(event)' /><br/>
+	<button class="create-dote">Création</button>
+	<button class="stop">Stop</button>
+	<button class="clear">Clear</button>
+	<br/>
+	
+	<script src="js/fenteAnimation.js"></script>
+  </body>
+</html>

@@ -1,0 +1,25 @@
+
+.ecran {
+	background: black;
+}
+
+#cannon {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+#electron {
+	width: 10px;
+    height: 10px;
+	border-radius: 50%;
+	background: blue;
+}
+
+#canvas {
+	 height: 200px;
+	 width: 1000px;
+}
+

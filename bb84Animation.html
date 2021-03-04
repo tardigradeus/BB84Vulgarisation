@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>BB84</title>
+	
+	<link href="css/bb84Animation.css" rel="stylesheet" type="text/css" media="all">
+	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="js/anime.min.js"></script>
+	<script src="js/outils.js"></script>
+	
+	
+  </head>
+  <body>
+
+
+	<div class="container">
+		<div id="alice">
+			<p>Alice</p>
+			<div class="horizontal">
+				<img src="img/alice.svg" width="200" height="200">
+				<div class="vertical">
+					<label>k : </label><input type='text' id="nbr" />
+					<div class="horizontal" id="ABases">
+						
+					</div>
+					<div class="horizontal" id="APolarized">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="bob">
+			<p>Bob</p>
+			<img src="img/bob.svg" width="200" height="200">
+		</div>
+	</div>
+	<label>Nombre de photon polarisé : </label><input type='text' id="nbr" onkeypress='validate(event)' /><br/>
+	<button class="start">start</button>
+	
+	<script src="js/bb84Animation.js"></script>
+  </body>
+</html>
