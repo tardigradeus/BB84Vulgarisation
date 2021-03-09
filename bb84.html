@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="js/anime.min.js"></script>
     <script src="js/outils.js"></script>
+	<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+	<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
 	<h1>PRotocole BB84</h1>
@@ -50,6 +52,53 @@
 		<img src="img/BitFinalNoError.jpg"/>
 		<p>Alice et Bob on maintenant une suite de bits connue seulement d'eux seul et peuvent créer un clé à partir de cette suite</p>
 	<div>
+	<div>
+		<h2>Cas avec espion (cas général de BB84)</h2>
+		<h3>Etape 1</h3>
+		<p>Même étape que sans espion, Alice génère une suite de bits aléatoire et de bases aléatoire, encode les bits et les envoies dans le canal quantique</p>
+		<h3>Etape 2</h3>
+		<p>Eve intercepte les Photons envoyé par Alice et les décodes, le problème étant qu'en faisant cela Eve détruit l'information sur les photons et dois donc les renvoyer à Bob.</p>
+		<p>Si Eve ne renvoie pas les photons alors Bob saura qu'il y a écoute sur le canal quantique, mais la force de BB84 et de son association avec un canal quantique c'est que même en renvoyant les photons à Bob il y une forte probabilité de découvrir que le canal est sur écoute</p>
+		<p>Reprenons, Eve intercepte les photons et agis comme Bob en créant une base de décodage de façon aléatoire</p>
+		<img src="img/EveDecoding.jpg">
+		<p>Comme Bob elle a 50% de trouver une bonne base de décodage mais à ce stade elle ne sait pas si elle a choisi une bonne base ou non puisque Alice n'a pas encore révélé ses bases d'encodage</p>
+		<h3>Etape 3</h3>
+		<p>Bob récupère les photons envoyé par Eve croyant qu'ils viennent d'Alice et les décodent un a un</p>
+		<img src="img/BobGetFromEve.jpg"/>
+		<img src="img/BobDecodingFromEve.jpg"/>
+		<p>Au niveaux de la représentation j'ai mis en rouge les Erreurs introduites par Eve lors de son envoie mais Bob et Alice ne savent toujours pas s'ils ont été écouté ou non</p>
+		<h3>Etape 4</h3>
+		<p>C'est l'étape dit de la réconciliation, Alice et Bob s'envoie leurs base et déduisent la clé suivant les bases communes, à ce stade la, Bob et Alice ne savent toujours pas s'il ont été écouté ou non</p>
+		<img src="img/BitFinalWithError.jpg"/>
+		<p>Comme on peux le voir il y a un bit rouge dans le résultat en effet Eve à introduit une erreur que je vais expliquer maintenant en prenant la colonne qui pose problème (la 9ième): </p>
+		<img src="img/EveError.jpg"/>
+		<p> Alice tout en haut a encodé le bit 0 avec la base : <img src="img/RectArrowsCross.svg" class="base"/> et obtiens donc : <img src="img/HorizontalArrow.svg" class="encodage"/>.</br>
+			Eve choisi la mauvaise base pour décoder le photon: <img src="img/DiagArrowsCross.svg" class="base"/> et donc reçois un résultat aléatoire lors du décodage, ici : <img src="img/LeftDiagArrow.svg" class="encodage"/>.</br>
+			Bob lui a choisi la Bonne base par rapport à celle d'Alice : <img src="img/RectArrowsCross.svg" class="base"/> mais comme Eve n'a pas choisi la bonne base elle a introduit ici une erreur, Bob récupère donc un résultat aléatoire alors qu'il avait choisi la bonne base.</br>
+			Pas de chance ici pour Eve qui a 50% de chance que Bob tombe sur le même bit d'alice et donc ne puisse pas détecter l'erreur. Mais ici il décode <img src="img/VerticalArrow.svg" class="encodage"/> ce qui correspond au bit 1.</br></br>
+			
+			par un calcul simple on comprend vite que : \[\mathbb{P}(detection)=1-(\frac{3}{4})^n\] </br></br>
+			
+			Voila l'explication sur l'introduction d'erreurs par Eve, cette explication est celle d'un point de vue extérieur, Alice et Bob ne savent toujours pas s'ils ont été écouté ils vont devoir alors comparer leurs résultats décodé, on dit qu'ils vont "sacrifier des bits", en effet s'ils montrent une partie de ce qui vas servir de clé dans le canal publique il ne faut pas que ces bits fassent partie de la clé.
+			Dans cet Exemple si Alice et Bob sacrifient et comparent la moitié des bits de la clé il vont avoir 101 pour Alice et 111 pour Bob, il y a erreur ils savent qu'ils on été écouté sur le canal quantique et donc que le reste de bit (000) n'est pas utilisable.
+		</p>
+		<p>Plus la taille de bit augmente plus les chance de découvir Eve augmente, voici quelques exemples avec 64 bits<p>
+		<img src="img/ResWithEve1.jpg"/>
+		<img src="img/ResWithEve2.jpg"/>
+		<img src="img/ResWithEve3.jpg"/>
+		<img src="img/ResWithEve4.jpg"/>
+	</div>
+	<div>
+		<h2>Explication de l'animation</h2>
+		<img src="img/optionBB84.jpg"/>
+		<p> On choisi le nombre de bit que l'on veut créer et qui vont être encodé et envoyé en photons.</br>
+			On choisi si oui ou non il y a la présence d'Eve sur le canal quantique.</br>
+			On choisi si on veut un délais dans l'animation, ce qui permet de voir les échanges entre Alice, Eve et Bob(intéréssant avec un petit nombre de bits) sinon alors le résultat et les échanges sont fait instantanément(intéréssant des que l'on veux voir des résultats sur un grand nombre de bits).</br>
+			On démarre l'animation avec start, à l'instart de l'animation des fentes on ne peux pas faire de pause dans l'animation.</br>
+			Une fois terminé on peux récupérer tout en bas le resultat de l'échange de bits entre Alice et Bob</br>
+		</p>
+		
+	</div>
 	
 </body>
 </html>
