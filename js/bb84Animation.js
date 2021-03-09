@@ -321,9 +321,11 @@ document.querySelector('.start').onclick = async function(){
 		eBases += randomIntFromInterval(0,1);
 	}
 		
+		
 	// On donne la liste des bit à encoder et la liste des bases utilisées ainsi que la localisation html ou il faut placer les éléments
 	encodePhoton(Array.from(k),Array.from(aBases),document.getElementById("APolarized"));
 
+	await sleep(1000);
 
 	// On récupère la liste de nos photon polarisé en DOM HTML et on les animes
 	let alicePhotonHTML = document.querySelectorAll('.photon');

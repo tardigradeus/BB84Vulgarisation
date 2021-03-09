@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>BB84</title>
+
+    <link href="css/bb84.css" rel="stylesheet" type="text/css" media="all">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/anime.min.js"></script>
+    <script src="js/outils.js"></script>
+</head>
+<body>
+	<h1>PRotocole BB84</h1>
+	<div>
+		<h2>Introduction</h2>
+		<p>C'est le coeur de se projet, j'ai créée l'animation <a href="bb84Animation.html">ici</a> pour faciliter la compréhension de celui-ci</p>
+		<p>
+			L'interêt principale de se protocole est qu'il permet de partager un secret au moyen d'un canal de communication dit quantique. 
+			Le protocole prévois l'utilisation de photons polarisé via des filtres.
+		</p>
+		<img src="img/polarized-filter.svg"/>
+		<p>Le schéma montre un paquet de photons qui on toute les orientations possible que l'on filtre pour n'avoir au final que des photons polarisé selon une orientation défini</p>
+		<p>Grâce à ce principe on peut encoder une base binaire qui va servir de base à la création d'une clé de chiffrement.
+			Pour l'animation et l'explication je prendrais les encodages suivants : 
+		</p>
+		<ul>
+			<li><p> 0 => <img src="img/DiagArrowsCross.svg" class="base"/> = <img src="img/RightDiagArrow.svg" class="encodage"/></p></li>
+			<li><p> 1 => <img src="img/DiagArrowsCross.svg" class="base"/> = <img src="img/LeftDiagArrow.svg" class="encodage"/></p></li>
+			<li><p> 0 => <img src="img/RectArrowsCross.svg" class="base"/> = <img src="img/HorizontalArrow.svg" class="encodage"/></p></li>
+			<li><p> 1 => <img src="img/RectArrowsCross.svg" class="base"/> = <img src="img/VerticalArrow.svg" class="encodage"/></p></li>
+		</ul>
+		<p>Pour notre exemple on va prendre Alice qui veux communiquer avec Bob avec la possibilité qu'Eve écoute le canal quantique pour intercepter les communications d'Alice et Bob</p>
+	</div>
+	<div>
+		<h2>Cas sans Espion</h2>
+		<h3>Etape 1</h3>
+		<p>Alice va générer une suite aléatoire de bit ainsi qu'une base pour encoder les bits généré suivant la liste donné plus haut</p>
+		<img src="img/AliceGenerationEncode.jpg"/>
+		<h3>Etape 2</h3>
+		<p>Alice envoie via le canal de communication quantique les photons polarisé à Bob. Pour chaque photon reçu il va choisir une base de façon aléatoire pour les décoder<p>
+		<img src="img/AliceCommunication.jpg"/>
+		<h3>Etape 3</h3>
+		<p>Une fois que Bob à terminé de décoder les photons reçu il a 50% de chance d'avoir mal lu chaques photons, puisque les bases pour les décoder
+		   on été choisi aléatoirement. Il va donc communiquer les bases qu'il a utilisé pour décoder les photon à Alice sur un canal publique (pas montré dans l'animation)
+		   et Alice envoie les bases qu'elle à utilisé pour l'encodage. Une fois reçu Alice et Bob connaissent donc les bases de chacun et donc peuvent forger la clé en fonction des bonne bases
+		</p>
+		<img src="img/BobDecode.jpg"/>
+		<p>Sur cette image les bon photons récupéré par Bob sont affiché en Vert et les mauvais en Cyan si on ne garde que les bon photons et que l'on les traduits en bits on obtients : </p>
+		<img src="img/BitFinalNoError.jpg"/>
+		<p>Alice et Bob on maintenant une suite de bits connue seulement d'eux seul et peuvent créer un clé à partir de cette suite</p>
+	<div>
+	
+</body>
+</html>
