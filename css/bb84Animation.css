@@ -1,5 +1,4 @@
 * {
-    border: 0;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -145,7 +144,7 @@
   #navbar li a:hover:before {
     background: rgb(13, 26, 38);
     width: 100%;
-    transition: width 0.5s cubic-bezier((0.22, 0.61, 0.36, 1));
+    transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
   
   #navbar li a:hover:after {
@@ -157,7 +156,9 @@
    
 
 
-
+#alice {
+    margin-top: 150px;
+}
 
 
 #bob {
