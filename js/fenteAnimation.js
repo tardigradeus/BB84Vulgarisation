@@ -10,7 +10,7 @@ function createDot(canvas) {
 	// Création d'un point sur le canvas au coordonées x,y
 	function drawDot(x, y){
 		ctx.beginPath();
-		ctx.arc(x, y, 1, 0, 0.5 * Math.PI);
+		ctx.arc(x, y, 0.5, 2, 0.25 * Math.PI);
 		ctx.fillStyle = "#FFFFFF";
 		ctx.fill();
 		ctx.strokeStyle = "#FFFFFF";
@@ -47,15 +47,17 @@ async function animeElectron(delay){
 	
 	elec.setAttribute("id","electron");
 	elec.style.position = 'absolute';
-	elec.style.top = cannonCoo.top + cannon.width/4 + "px";
-	elec.style.left = cannonCoo.left + cannon.height/2 + "px";
+	elec.style.top = cannonCoo.top + cannon.height/(2.25) + "px";
+	elec.style.left = cannonCoo.left + cannon.width/2 + "px";
 	
 	document.body.appendChild(elec);
 	
+	let fenteCoo = getElementTopLeft("fente");
+
 	// On fait l'animation de l'électron
 	anime({
 	  targets: elec,
-	  translateY: -400,
+	  translateX: (fenteCoo.left - cannonCoo.left),
 	  easing: 'easeInOutSine',
 	  duration: 200
 	});

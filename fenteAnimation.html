@@ -13,33 +13,49 @@
 	
   </head>
   <body>
+
+	<nav id="navbar" class="">
+		<div class="nav-wrapper">
+		  <!-- Navbar Logo -->
+		  <div class="logo">
+			<img src="img/Logo_UTC_2018.svg" class="img"/>
+		  </div>
+	  
+		  <!-- Navbar Links -->
+		  <ul id="menu">
+			<li><a href="index.html">Accueil</a></li>
+			<li><a href="fenteAnimation.html">Fentes de Young</a></li>
+			<li><a href="fente.html">Explication</a></li>
+			<li><a href="bb84Animation.html">BB84 Animation</a></li>
+			<li><a href="bb84.html">Explication</a></li>
+		  </ul>
+		</div>
+	  </nav>
+	  
+	  <div class="menuIcon">
+		<span class="icon icon-bars"></span>
+		<span class="icon icon-bars overlay"></span>
+	  </div>
 	<canvas id="canvas" class="ecran">	Your browser does not support canvas.</canvas>
 	
 
 	</br>
 	<img src="img/Double-slit.svg" width="200" height="200" id="fente">
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
-	</br>
+	
 	<img src="img/cannon.svg" width="200px" height="200px" id="cannon">
 	<br/>
-	<label>Nombre de point à créer : </label><input type='text' id="nbr" onkeypress='validate(event)' /><br/>
-	<label>Délais entre chaques points (en ms) : </label><input type='text' id="delay" onkeypress='validate(event)' /><br/>
+	<div class="form">
+	<label>Nombre de point à créer : </label>
+	<input type='text' id="nbr" onkeypress='validate(event)' /><br/>
+
+	<label>Délais entre chaques points (en ms) : </label>
+	<input type='text' id="delay" onkeypress='validate(event)' /><br/>
+
 	<button class="create-dote">Création</button>
 	<button class="stop">Stop</button>
 	<button class="clear">Clear</button>
 	<br/>
+	</div>
 	
 	<script src="js/fenteAnimation.js"></script>
   </body>

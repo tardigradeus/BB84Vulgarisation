@@ -12,28 +12,51 @@
 </head>
 <body>
 
+    <nav id="navbar" class="">
+        <div class="nav-wrapper">
+          <!-- Navbar Logo -->
+          <div class="logo">
+            <img src="img/Logo_UTC_2018.svg" class="img"/>
+          </div>
+      
+          <!-- Navbar Links -->
+          <ul id="menu">
+            <li><a href="index.html">Accueil</a></li>
+            <li><a href="fenteAnimation.html">Fentes de Young</a></li>
+            <li><a href="fente.html">Explication</a></li>
+            <li><a href="bb84Animation.html">BB84 Animation</a></li>
+            <li><a href="bb84.html">Explication</a></li>
+          </ul>
+        </div>
+      </nav>
+      
+      <div class="menuIcon">
+        <span class="icon icon-bars"></span>
+        <span class="icon icon-bars overlay"></span>
+      </div>
+
 <h1>Fentes de Young</h1>
 <p>Expérience qui permet de répondre à la question : La lumière est-elle une onde ou un corpuscule ?</p>
 <p>Si on prend l'exemple d'un fusil qui tire à travers deux fentes dans une planche on obtient le résultat suivant :</p>
 <img src="img/tirfente.png" width="300" height="200"/>
 <p>Résultat que l'on attend de manière intuitive, alors que se passe t-il lorsque l'on tire des photons avec un canon à photon à travers
 deux fentes ? </p>
-<p>Une animation est disponible ici : <a href="fenteAnimation.html">Animation</a></p>
-<p>lors des premiers tirs on pourrait déduire que le résultat donne des positions aléatoires</p>
+<p>Une animation est disponible ici : <a href="fenteAnimation.html">Animation,</a>
+lors des premiers tirs on pourrait déduire que le résultat donne des positions aléatoires</p>
 <img src="img/30photons.png" width="600" height="200" alt="Résultat après 30 tirs"/>
 <p>mais plus le temps avance et plus on discerne une figure particulière</p>
 <img src="img/40photons.png" width="600" height="200" alt="Résultat après 40 tirs"/>
 <img src="img/100photons.png" width="600" height="200" alt="Résultat après 100 tirs"/>
 <img src="img/500photons.png" width="600" height="200" alt="Résultat après 500 tirs"/>
 <img src="img/10000photons.png" width="600" height="200" alt="Résultat après 10000 tirs"/>
-<p>On peux voir au final une figure d'interférence ce qui correspond au comportement d'une onde. Et lorsque l'on essaie de comprendre par quel fente est passé le photon,
+<p>On peux voir au final une figure d'interférence ce qui correspond au comportement d'une onde.</p> <p> Et lorsque l'on essaie de comprendre par quel fente est passé le photon,
     via un système de détection, alors on obtiens la même figure lors du cas du tir au fusils
 </p>
 <p>Sur la page de l'<a href="fenteAnimation.html">animation</a> des fentes il y a deux champs à paramétrer :</p>
 <img src="img/parametreFentes.png" width="600" height="75" alt="Paramètre de l'animation"/>
-<p>Le nombre de point que l'on veut faire apparaitre sur la figure et le délais entre chaque animation et chaque apparition (si laissé vide alors pas d'animation et tout les points appraitrons en même temps</p>
+<p>Le nombre de point que l'on veut faire apparaitre sur la figure et le délais entre chaque animation </p><p>et chaque apparition (si laissé vide alors pas d'animation et tout les points appraitrons en même temps</p>
 <p>Au niveaux des boutons :
-    <ul>
+    <ul class="buttons">
         <li>Création: permet de démarrer l'animation</li>
         <li>Stop: permet de stoper l'animation</li>
         <li>Clear: permet de nettoyer la figure</li>
