@@ -98,19 +98,23 @@
 			</tr>
 		</table>
 	</div>
-	<label>Nombre de photon polarisé : </label><input type='text' id="nbr" onkeypress='validate(event)' /><br>
+
+	<div class="form">
+	<label>Nombre de photon polarisé : </label><input class="input1" type='text' id="nbr" onkeypress='validate(event)' /><br>
+	
 	
 	<label for="EveHere">Présence d'Eve</label>
-	<input type="checkbox" id="EveHere" name="EveHere" value="Eve" onchange="EveHere()"><br>
+	<input class="input" type="checkbox" id="EveHere" name="EveHere" value="Eve" onchange="EveHere()"><br>
 	
 	<label for="delay">Délais</label>
-	<input type="checkbox" id="delay" name="delay" value="delay" checked="true"><br>
+	<input class="input" type="checkbox" id="delay" name="delay" value="delay" checked="true"><br>
 	
+
 	<button class="start">start</button></br>
 	
 	<label for="aliceBitSequence">Bits d'Alice : </label><div class="cleaneable" name="aliceBitSequence" id="aliceBitSequence"></div>
 	<label for="bobBitSequence">Bits de Bob : </label><div class="cleaneable" name="bobBitSequence" id="bobBitSequence"></div>
-	
+	</div>
 	<script src="js/bb84Animation.js"></script>
   </body>
 </html>

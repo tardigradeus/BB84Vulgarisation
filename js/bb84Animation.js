@@ -15,7 +15,7 @@ function EveHere(){
 		eveHtml.style.display='none';
 		eve = false;		
 		
-		bob.style.marginTop ="500px";
+		bob.style.marginTop ="150px";
 
 	// on montre eve	
 	} else {
@@ -341,7 +341,7 @@ document.querySelector('.start').onclick = async function(){
 			if(delay) {
 				anime({
 				  targets: alicePhotonHTML[i],
-				  translateY: 700,
+				  translateY: 325,
 				  easing: 'easeInOutSine',
 				  duration: 500
 				});
@@ -365,7 +365,7 @@ document.querySelector('.start').onclick = async function(){
 			if(delay) {
 				anime({
 				  targets: alicePhotonHTML[i],
-				  translateY: 325,
+				  translateY: 300,
 				  easing: 'easeInOutSine',
 				  duration: 500
 				});
@@ -390,7 +390,7 @@ document.querySelector('.start').onclick = async function(){
 			if(delay) {
 				anime({
 				  targets: evePhotonHTML[i],
-				  translateY: 325,
+				  translateY: 300,
 				  easing: 'easeInOutSine',
 				  duration: 500
 				});

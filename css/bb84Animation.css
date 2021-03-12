@@ -157,21 +157,27 @@
 
 
 #alice {
-    margin-top: 150px;
+    margin-top: 100px;
+    margin-left: 5%;
+    margin-right: 5%;
 }
 
 
 #bob {
-	margin-top: 500px;
+  margin-top: 150px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 #eve {
-	display: none;
+  display: none;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .actor {
-	width: 200px;
-	height: 200px;
+	width: 150px;
+	height: 150px;
 }
 
 .photon, .bobPhoton, .evePhoton, .decode, .kGenerated, .base {
@@ -199,3 +205,44 @@
 .error {
     filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(330deg) brightness(118%) contrast(119%);
 }
+
+
+.form {
+  margin-top: 3%;
+  margin-right: auto;
+  margin-left: auto;
+  width: 30%; 
+}
+
+button {
+
+  background-color:blue;
+  color: #fff;
+  height: 30px;
+  width: 100px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 3%;
+  border-radius: 10px;
+}
+
+
+.input1 {
+  border-radius: 5px;
+  border-color: blue;
+  height: 20px;
+  width: 150px;
+  margin-left: 3%;
+  box-sizing: border-box;
+  margin-bottom: 1%;
+}
+
+.input {
+  border-radius: 5px;
+  margin-left: 3%;
+  height: 15px;
+  width: 15px;
+  box-sizing: border-box;
+}
+
+
